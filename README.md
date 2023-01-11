@@ -28,14 +28,14 @@ FAQ问答服务
 ### 2. 排序
 #### 2.1 基于无监督方法
 - BM25
-     - 基于BM25的思路，计算query与候选数据集之间的得分，作为排序分数。
+     - 基于`BM25`的思路，计算query与候选数据集之间的得分，作为排序分数。
 - N-gram
-     - 使用2-gram、3-gram、4-gram提取词片段，再使用jaccard计算相似度，作为排序分数。
+     - 使用`2-gram`、`3-gram`、`4-gram`提取词片段，再使用`jaccard`计算相似度，作为排序分数。
 - Word2Vec
-     - 使用本项目的QA数据集作为语料，基于gensim框架训练得到的word2vec模型。
+     - 使用本项目的QA数据集作为语料，基于`gensim`框架训练得到的`word2vec`模型。
      - 计算词向量之间的相似度，作为排序分数。
 - Language Model
-     - 基于框架sentence-transformers，Base model为[MiniLM](https://huggingface.co/microsoft/MiniLM-L12-H384-uncased)，使用的模型参数为[all-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2)。
+     - 基于框架`sentence-transformers`，Base model为[MiniLM](https://huggingface.co/microsoft/MiniLM-L12-H384-uncased)，使用的模型参数为[all-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2)。
 #### 2.2 基于监督方法
 - 待补充
      - 其实就是使用分类模型的思路，训练一个排序模型。
