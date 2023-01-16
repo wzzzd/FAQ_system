@@ -21,7 +21,7 @@ FAQ问答服务
 
 - 2.查询流程
 ```
-输入query文本 -> 分词 -> 召回（ES） -> 粗序（PreRank） -> 精排（Rank）
+输入query文本 -> 分词 -> 召回（ES） -> 粗序（PreRank） -> 精排（Rank） -> result
 ```
 
 ## 方法
@@ -54,7 +54,7 @@ FAQ问答服务
 #### 3.2 基于监督方法
 - Bert
      - 垂直领域使用有监督的方法（分类模型的思路），训练一个排序模型，提升精排的准确率。
-     - 可参考项目[text_classifier_pytorch](https://github.com/wzzzd/text_classifier_pytorch)
+     - 可参考本人另一个项目[text_classifier_pytorch](https://github.com/wzzzd/text_classifier_pytorch)
      - 训练语料使用句子对的形式，学习目标是两个句子相似与否，即分类任务。
 ```
 给出句子
