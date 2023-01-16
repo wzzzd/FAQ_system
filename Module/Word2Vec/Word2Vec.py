@@ -93,7 +93,7 @@ class W2V(object):
         return vec
 
     
-    def compute_similarity(self, query, corpus, topk=10):
+    def compute_similarity(self, query, corpus):
         """计算文本与语料库的相似度
         Args:
             query (_type_): _description_
@@ -106,7 +106,7 @@ class W2V(object):
             norm = np.linalg.norm(query)*np.linalg.norm(c)
             cos_sim = dot / max(norm, 1)
             score.append([i, cos_sim])
-        scores_rank = sorted(score, key=lambda x: x[1], reverse=True)[:topk]
+        scores_rank = sorted(score, key=lambda x: x[1], reverse=True)
         return scores_rank 
 
         

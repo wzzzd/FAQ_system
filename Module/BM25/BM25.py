@@ -36,7 +36,7 @@ class BM25(object):
             self.idf[k] = math.log(self.D-v+0.5)-math.log(v+0.5)
 
 
-    def search(self, query, corpus, topk=10):
+    def search(self, query, corpus):
         """
         计算query与库中所有文档的相似性
         """
@@ -46,7 +46,7 @@ class BM25(object):
             score = self.sim(query, index)
             scores.append([index, score])
         # 排序
-        score_sort = sorted(scores, key=lambda x: x[1], reverse=True)[:topk]
+        score_sort = sorted(scores, key=lambda x: x[1], reverse=True)
         # index = [ x[0] for x in score_sort ]
         # 计算概率：按照排序分数
         # value = sum([x[1] for x in score_sort])

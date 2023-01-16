@@ -43,7 +43,7 @@ class Ngram(object):
         return score
     
 
-    def compute_similarity(self, query, question, topk=10):
+    def compute_similarity(self, query, question):
         """
         计算query与question的相似度
         Args: 
@@ -68,7 +68,7 @@ class Ngram(object):
             s = self.compute_jaccard(query_ngrams, x)
             score.append([i, s])
         # 排序
-        score_sort = sorted(score, key=lambda x: x[1], reverse=True)[:topk]
+        score_sort = sorted(score, key=lambda x: x[1], reverse=True)
         return score_sort
 
 

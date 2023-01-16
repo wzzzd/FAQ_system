@@ -23,6 +23,12 @@ class LMEmbedding(object):
     #     # print("Similarity:", util.dot_score(query_embedding, passage_embedding))
     #     return query_embedding[0]
 
+    def to(self, device):
+        """
+        模型加载到cuda
+        """
+        self.model.to(device)
+
     
     def get_embedding(self, text):
         """获取文本语义编码
@@ -36,7 +42,7 @@ class LMEmbedding(object):
         return emb
 
     
-    def compute_similarity(self, query, corpus, topk=10):
+    def compute_similarity(self, query, corpus):
         """计算文本与语料库的相似度
         Args:
             query (_type_): _description_
@@ -45,9 +51,9 @@ class LMEmbedding(object):
         query_emb = self.model.encode(query)
         corpus_emb = self.model.encode(corpus)
         matrix = util.dot_score(query_emb, corpus_emb)
-        flat = matrix.view(-1).tolist()
+        flat = matrix.view(-1).cpu().tolist()
         flat = [[i,x] for i,x in enumerate(flat)]
-        scores_rank = sorted(flat, key=lambda x: x[1], reverse=True)[:topk]
+        scores_rank = sorted(flat, key=lambda x: x[1], reverse=True)
         return scores_rank
 
     
