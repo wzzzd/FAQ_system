@@ -102,7 +102,7 @@ $ pip install -r requirements.txt            # 安装依赖
 $ pip install -r requirements.txt
 ```
 
-另外，为了在语料较大的情况下，减少召回模块消耗的时间，本项目使用Elasticsearch分布式搜索引擎来存储所有的语料。使用版本为7-10-2。（[下载地址](https://www.elastic.co/cn/downloads/past-releases/elasticsearch-7-10-2)）
+另外，为了在语料较大的情况下，减少召回模块消耗的时间，本项目使用Elasticsearch分布式搜索引擎来存储所有的语料。使用版本为（[7-10-2](https://www.elastic.co/cn/downloads/past-releases/elasticsearch-7-10-2)）。
 
 
 ## 效果
@@ -238,10 +238,6 @@ $ curl --request POST \
 说明
 - 此服务部署方式只支持同一台设备的网络访问。
 - 若想通过其他设备来访问此Web服务，需要额外配置对外开放相关端口，或者接入流量转发器（如nginx）进行请求的转发。
-
-
-
-## 说明
 
 
 
