@@ -71,27 +71,6 @@ label: 1
 
 
 ## 数据集
-1.AFQMC 蚂蚁金融语义相似度 Ant Financial Question Matching Corpus
-- 原始数据是一个句子pair语义相似任务的数据集。包含训练集（34334）验证集（4316）测试集（3861）。
-     - 栗子：{"sentence1": "双十一花呗提额在哪", "sentence2": "里可以提花呗额度", "label": "0"}
-- 本项目中，提取了所有`label=1`，即在原始数据集中，被认为是语义相似的数据。将数据抽取成两个字段，分别为`question`（问题）和`module`（问题模板）。
-     - 注意：原始的数据集中，标注为相似的句子pair，存在部分标注错误问题。
-     - 栗子：{"question":"花呗充话费在哪个界面", "module":"在那里用花呗充值话费"}
-     - 数据集：
-          - `corpus.txt`: 语料库,包含`question`和`module`两个字段。
-               - 包含了原始数据集中训练、验证、测试三个数据集。
-          - `test.txt`: 测试数据，包含`query`和`question`两个字段。
-               - `query`字段是根据`question`字段处理后的文本复述，语义相同但表述不同。
-               - `question`字段表示标准问题，来自`corpus.txt`部分数据的`question`字段。
-
-2.保险行业语料
-- 来自项目[insuranceqa-corpus-zh](https://github.com/chatopera/insuranceqa-corpus-zh)
-- 数据处理成两个数据集
-     - `corpus.txt`: 语料库，包含`question`和`answer`两个字段。
-          - 包含了原始数据集中训练、验证、测试三个数据集。
-     - `test.txt` : 测试数据，包含`query`和`question`两个字段。
-          - `query`字段是根据`question`字段处理后的文本复述，语义相同但表述不同。
-          - `question`字段表示标准问题，来自`corpus.txt`部分数据的`question`字段。
 
 1.保险行业语料
 - 来自项目[baoxianzhidao_filter](https://github.com/SophonPlus/ChineseNlpCorpus/blob/master/datasets/baoxianzhidao/intro.ipynb)
