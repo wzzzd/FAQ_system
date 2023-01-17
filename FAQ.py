@@ -87,11 +87,6 @@ if __name__ == '__main__':
         question = line['question']
         target = line['answer']
         answer = faq.query(question)
-        # print('- question:{}'.format(question))
-        # # print('- answer:  {}'.format(target))
-        # for line in answer:
-        #     print('     - question:{} '.format(line['question']))
-        #     # print('     - question:{}  - answer:{}'.format(line['question'],line['answer']))
         # top1 num
         module = answer[0]['answer']
         if target==module:
@@ -114,15 +109,11 @@ if __name__ == '__main__':
             if target==module:
                 recall_num += 1
                 break
-    # top1 acc
+    # acc
     top1_acc = top1_num/max(len(data), 1)
-    # top3 acc
     top3_acc = top3_num/max(len(data), 1)
-    # top10 acc
     top10_acc = top10_num/max(len(data), 1)
-    # recall
     recall = recall_num/max(len(data), 1)
-
 
     print('top 1 acc={}/{}={}'.format(top1_num, max(len(data), 1), top1_acc))
     print('top 3 acc={}/{}={}'.format(top3_num, max(len(data), 1), top3_acc))

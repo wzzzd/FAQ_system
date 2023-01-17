@@ -4,6 +4,7 @@ import pandas as pd
 from Module.BM25.BM25 import BM25
 from Module.Ngram.Ngram import Ngram
 from Module.Word2Vec.Word2Vec import W2V
+from Module.Word2Vec.Word2VecTX import W2VTX
 # from Module.Word2Vec.train import W2V
 from Module.LM.LMEmbedding import LMEmbedding
 from Utils.Logger import init_logger
@@ -18,7 +19,7 @@ class PreRank(object):
         self.logger = init_logger() # 'PreRank model'
         self.logger.info('  - model: {}'.format(self.model_name))
 
-        # 初始化：Word2Vec
+        # 初始化：Word2Vec(自训练)
         if self.model_name == 'word2vec':
             self.model = W2V(config)
             ## 若不存在word2vec模型，则训练
@@ -34,6 +35,11 @@ class PreRank(object):
                 self.logger.info('     - model: exist')
                 self.logger.info('     - model: loading ...')
                 self.model.load(self.config.path_w2v_model)
+        # 初始化：Word2Vec(tencent)
+        if self.model_name == 'word2vec-tx':
+            self.model = W2VTX(config)
+            self.logger.info('     - model: loading ...')
+            self.model.load(self.config.path_w2v_tx)
         # 初始化：BM25
         if self.model_name == 'bm25':
             # self.model = BM25()
@@ -73,7 +79,7 @@ class PreRank(object):
         elif self.model_name == 'ngram':
             score = self.model.compute_similarity(query, question)
         ## Word2Vec
-        elif self.model_name == 'word2vec':
+        elif self.model_name in ['word2vec', 'word2vec-tx']:
             query_vec = self.model.get_embedding(query_token)
             corpus_vec = [self.model.get_embedding(line) for line in question_token]
             score = self.model.compute_similarity(query_vec, corpus_vec)

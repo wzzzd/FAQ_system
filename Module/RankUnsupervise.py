@@ -51,10 +51,10 @@ class RankUnsupervise(object):
         ## Distilbert
         if self.model_name in ['simcse-distilbert', 'simcse-bert']:
             # 获取query的embedding输出
-            in_query = self.tokenizer(query, return_tensors="pt")
+            inputs_token = self.tokenizer(query, return_tensors="pt")
             if self.config.use_cuda:
                 inputs_token = inputs_token.to(self.device)
-            out_query = self.model(**in_query)
+            out_query = self.model(**inputs_token)
             emb_query = out_query.last_hidden_state[:,0]
             emb_query = emb_query.transpose(0,1)
             # 获取question的embedding输出

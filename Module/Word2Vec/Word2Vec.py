@@ -5,7 +5,6 @@ import pandas as pd
 from gensim.models import Word2Vec
 from gensim.models import KeyedVectors
 from gensim.test.utils import common_texts
-
 # from gensim.models.word2vec import Word2Vec
 import jieba
 import numpy as np
@@ -63,8 +62,6 @@ class W2V(object):
         获取单词的embedding vector
         同时需要考虑OOV的问题
         """
-        # dict_word = list(self.model.wv.key_to_index.keys())
-        # dict_word = self.model.wv.vocab.keys()
         if word in self.dict_word:
             # 在词典里
             vec = self.model.wv[word]                          # get numpy vector of a word

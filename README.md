@@ -1,6 +1,6 @@
 # FAQ
 
-FAQ问答服务
+FAQ智能问答系统
 
 使用多种方法，实现FAQ的问题-模板匹配功能。
 
@@ -38,7 +38,9 @@ FAQ问答服务
 - N-gram
      - 使用`2-gram`、`3-gram`、`4-gram`提取词片段，再使用`jaccard`计算相似度，作为排序分数。
 - Word2Vec
-     - 使用本项目的QA数据集作为语料，基于`gensim`框架训练得到的`word2vec`模型。
+     - 提供了两种获取词向量的方法：
+          - (1) 使用本项目的QA数据集作为语料，基于`gensim`框架训练得到的`word2vec`模型。
+          - (2) 使用腾讯AI Lab开源的词向量[Embedding](https://ai.tencent.com/ailab/nlp/en/embedding.html)。需要将文件放置在目录`file/model/`下。项目默认使用【Original size: 1.8G; tar.gz size: 763M】的词向量，若使用其他词向量文件，需要修改`Config.py`下的`path_w2v_tx`变量值。
      - 计算词向量之间的相似度，作为排序分数。
 
 ### 3. 精排
@@ -135,14 +137,14 @@ $ pip install -r requirements.txt
 
 ### 2.指标
 在100个样本的测试集中，分别统计top1、top3、top10的召回结果准确率。
-| 模块配置 | Top1 Acc | Top3 Acc | Top10 Acc |
-| :-----| :---- | :---- | :---- |
-| PreRank(bm25) | 0.77 | 0.86 | 0.92 |
-| PreRank(ngram | 0.52 | 0.69 | 0.84 |
-| PreRank(word2vec) | 0.43 | 0.56 | 0.69 |
-| PreRank(bm25) + Rank(lm-mini)(Unsup) | 0.45 | 0.54 | 0.64 |
-| PreRank(bm25) + Rank(simcse-bert)(Unsup) | 0.43 | 0.51 | 0.61 |
-| PreRank(bm25) + Rank(bert)(sup) | 0.99 | 1.0 | 1.0 |
+| 粗排模型 | 精排模型 | Top1 Acc | Top3 Acc | Top10 Acc |
+| :-----| :---- | :---- | :---- | :---- |
+| bm25 | - | 0.77 | 0.86 | 0.92 |
+| ngram | - | 0.52 | 0.69 | 0.84 |
+| word2vec(tencent) | - | 0.76 | 0.83 | 0.88 |
+| bm25 | lm-mini(Unsup) | 0.45 | 0.54 | 0.64 |
+| bm25 | simcse-bert(Unsup) | 0.43 | 0.51 | 0.61 |
+| bm25 | bert(sup) | 0.99 | 1.0 | 1.0 |
 
 
 
@@ -151,12 +153,12 @@ $ pip install -r requirements.txt
 根目录下的`Config.py`文件，是配置文件。可自行修改相关的参数：
 - `es_ip`：ES搜索引擎的地址，默认是部署在同一台设备环境里，如果ES是部署在其他服务器，那么需要改成其他服务器的地址。
 - `es_index`：表示语料存储在ES中的index名字。
-- `model_name`：表示排序的方法，分别包含`bm25`/`ngram`/`word2vec`/`lm`。
+- `model_name`：表示排序的方法，分别包含`bm25/ngram/word2vec/word2vec-tx`。
 - `dataset`：表示数据集的名称，对应目录`./data/`下的数据文件夹名。
 - `use_rank`：是否使用精排模块。True开启，False关闭。
 - `use_supervise`：精排模块使用有监督方法，还是无监督方法。True为监督方法，False为无监督方法。
-- `unsup_rank_name`：表示无监督精排中，使用的模型类型，可选：`simcse-distilbert`/`simcse-bert`/`lm-mini`
-- `sup_rank_name`：表示监督方法精排中，使用的模型类型，可选：`distilbert`/`bert`
+- `unsup_rank_name`：表示无监督精排中，使用的模型类型，可选：`simcse-distilbert/simcse-bert/lm-mini`
+- `sup_rank_name`：表示监督方法精排中，使用的模型类型，可选：`distilbert/bert`
 
 
 ### 2.项目初始化
@@ -256,7 +258,6 @@ $ curl --request POST \
 | 更新时间 | 版本号 | 说明 |
 | :-----| :---- | :---- |
 | 2023-01-05 | V1.0 | 项目初始化，主要包含召回+排序的算法框架，以及Web服务 |
-| 2023-01-11 | V1.1 | 算法框架修改为：召回+粗排+精排 |
-| 2023-01-15 | V1.1 | 新增精排的supervise方法 |
+| 2023-01-17 | V1.1 | 算法框架修改为：召回+粗排+精排；新增精排的supervise方法；在粗排方法中，引入外部词向量 |
 | ... | ... | ... |
 
