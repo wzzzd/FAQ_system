@@ -74,7 +74,7 @@ label: 1
 
 1.保险行业语料
 - 来自项目[baoxianzhidao_filter](https://github.com/SophonPlus/ChineseNlpCorpus/blob/master/datasets/baoxianzhidao/intro.ipynb)
-- 根据`is_best=1`筛选出回答正确的数据，获取其中的`title`和`reply`字段，处理成两个数据集
+- 根据`is_best=1`筛选出回答正确的数据，获取其中的`title`和`reply`字段，处理成两个数据集，位于目录`data/insurance_zhidao_test/`下
      - `corpus.txt`: 语料库，包含`question`和`answer`两个字段。
           - `question`：与原始文件的`title`字段对应
           - `answer`：与原始文件的`reply`对应。
@@ -184,14 +184,24 @@ $ python insert_data_to_es.py
 若想直接使用本数据集训练的模型参数，可直接下载模型文件[rank-bert](https://pan.baidu.com/s/1B51WcVrjxRRRPVcqg4-dwg)，密码:tal1。并将下载的所有文件（非文件夹）放在目录`file/supervise/bert/`下。
 
 
-### 4.FAQ问答
+### 4.训练无监督的语义表征模型SimCSE（可选）
+若配置文件`config.py`中，字段`use_supervise=False`，则表示在rank阶段，使用有无监督的方法来实现。字段`unsup_rank_name=simcse-bert`时，表示使用SimCSE训练的预训练模型来进行句子语义提取。
+
+具体的无监督SimCSE模型及训练，可参考论文源码[SimCSE](https://github.com/princeton-nlp/SimCSE)。
+
+本项目提供了已经处理好的保险行业的无监督训练数据集，可参考`data/insurance_zhidao_unsup/corpus.txt`
+
+若想直接使用本数据集训练的模型参数，可直接下载模型文件[simcse-unsup-bert]()，密码:。并将下载的所有文件（非文件夹）放在目录`file/unsupervise/simcse_bert/`下。
+
+
+### 5.FAQ问答
 直接测试FAQ效果
 ```
 $ python FAQ.py
 ```
 
 
-### 5.部署FAQ问答服务
+### 6.部署FAQ问答服务
 可以将FAQ部署成一个Web服务。
 
 **Step1：启动FAQ问答Web服务。**

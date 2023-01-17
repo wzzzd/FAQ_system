@@ -3,7 +3,7 @@ import os
 import torch
 from transformers import AutoTokenizer, AutoModel
 from Module.LM.LMEmbedding import LMEmbedding
-from utils.Logger import init_logger
+from Utils.Logger import init_logger
 
 
 class RankUnsupervise(object):

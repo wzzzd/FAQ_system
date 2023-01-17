@@ -6,7 +6,7 @@ from transformers import AutoTokenizer, AutoModel
 from Module.Model.Bert import Bert
 from Module.Model.Distilbert import Distilbert
 from Module.LM.LMEmbedding import LMEmbedding
-from utils.Logger import init_logger
+from Utils.Logger import init_logger
 
 
 class RankSupervise(object):
