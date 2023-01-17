@@ -142,7 +142,7 @@ $ pip install -r requirements.txt
 | PreRank(word2vec) | 0.43 | 0.56 | 0.69 |
 | PreRank(bm25) + Rank(lm-mini)(Unsup) | 0.45 | 0.54 | 0.64 |
 | PreRank(bm25) + Rank(simcse-bert)(Unsup) | 0.43 | 0.51 | 0.61 |
-| PreRank(bm25) + Rank(bert)(sup) |  |  |  |
+| PreRank(bm25) + Rank(bert)(sup) | 0.99 | 1.0 | 1.0 |
 
 
 
