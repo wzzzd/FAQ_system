@@ -198,7 +198,7 @@ $ python insert_data_to_es.py
 
 本项目提供了已经处理好的保险行业的无监督训练数据集，可参考`data/insurance_zhidao_unsup/corpus.txt`
 
-若想直接使用本数据集训练的模型参数，可直接下载模型文件[simcse-unsup-bert]()，密码:。并将下载的所有文件（非文件夹）放在目录`file/unsupervise/simcse_bert/`下。
+若想直接使用本数据集训练的模型参数，可直接下载模型文件[simcse-bert](https://pan.baidu.com/s/16l2_HC59x_MleW-jl3qe_A)，密码:c50e。并将下载的所有文件（非文件夹）放在目录`file/unsupervise/simcse_bert/`下。
 
 
 ### 5.FAQ问答

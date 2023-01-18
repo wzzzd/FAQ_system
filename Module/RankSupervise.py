@@ -34,7 +34,7 @@ class RankSupervise(object):
             self.model.to(self.device)
 
 
-    def rank(self, query, corpus, size=10):
+    def rank(self, query, corpus, size=10, batch_size=8):
         """排序
         Args:
             query (string): 请求文本
@@ -60,17 +60,43 @@ class RankSupervise(object):
             inputs.append(tmp)
 
         # 计算排序分数
+        # # 获取question的embedding输出
+        # inputs_token = self.tokenizer(inputs, padding=True, return_tensors="pt")
+        # if self.config.use_cuda:
+        #     inputs_token = inputs_token.to(self.device)
+        # with torch.no_grad():
+        #     output = self.model(**inputs_token)
+        #     # 获取标签
+        #     pred = torch.max(output, 1)[1].cpu().numpy()
+        #     # 获取概率
+        #     outputs_softmax = F.softmax(output, 1)
+        #     prob = torch.max(outputs_softmax, dim=1)[0].cpu().numpy().tolist()
+
+        # 按照batch进行数据切片
+        input_index = [[i,x] for i,x in enumerate(inputs)]
+        interval = input_index[::batch_size]
+        indexs = [x[0] for x in interval]
+        if indexs[-1]!=len(inputs):
+            indexs.append(len(inputs))
+        if len(indexs)>1:
+            index_range = [[x,y] for x,y in zip(indexs[:-1],indexs[1:])]
+        else:
+            index_range = [[0,len(indexs)]]
         # 获取question的embedding输出
-        inputs_token = self.tokenizer(inputs, padding=True, return_tensors="pt")
-        if self.config.use_cuda:
-            inputs_token = inputs_token.to(self.device)
-        with torch.no_grad():
-            output = self.model(**inputs_token)
-            # 获取标签
-            pred = torch.max(output, 1)[1].cpu().numpy()
-            # 获取概率
-            outputs_softmax = F.softmax(output, 1)
-            prob = torch.max(outputs_softmax, dim=1)[0].cpu().numpy().tolist()
+        pred = []
+        prob = []
+        for line in index_range:
+            tmp_input = question[line[0]:line[1]]
+            tmp_input_token = self.tokenizer(tmp_input, padding=True, return_tensors="pt")
+            with torch.no_grad():
+                output = self.model(**tmp_input_token)
+                # 获取标签
+                tmp_pred = torch.max(output, 1)[1].cpu().numpy().tolist()
+                # 获取概率
+                outputs_softmax = F.softmax(output, 1)
+                tmp_prob = torch.max(outputs_softmax, dim=1)[0].cpu().numpy().tolist()
+                pred.extend(tmp_pred)
+                prob.extend(tmp_prob)
 
         # 获取标签为pos的概率值
         score = []

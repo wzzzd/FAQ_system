@@ -30,7 +30,7 @@ class RankUnsupervise(object):
 
 
 
-    def rank(self, query, corpus, size=10):
+    def rank(self, query, corpus, size=10, batch_size=8):
         """排序
         Args:
             query (string): 请求文本
@@ -58,9 +58,27 @@ class RankUnsupervise(object):
             emb_query = out_query.last_hidden_state[:,0]
             emb_query = emb_query.transpose(0,1)
             # 获取question的embedding输出
-            in_question = self.tokenizer(question, padding=True, return_tensors="pt")
-            out_question = self.model(**in_question)
-            emb_question = out_question.last_hidden_state[:,0]
+            # in_question = self.tokenizer(question, padding=True, return_tensors="pt")
+            # out_question = self.model(**in_question)
+            # emb_question = out_question.last_hidden_state[:,0]
+            # 按照batch进行数据切片
+            ques_index = [[i,x] for i,x in enumerate(question)]
+            interval = ques_index[::batch_size]
+            indexs = [x[0] for x in interval]
+            if indexs[-1]!=len(question):
+                indexs.append(len(question))
+            if len(indexs)>1:
+                index_range = [[x,y] for x,y in zip(indexs[:-1],indexs[1:])]
+            else:
+                index_range = [[0,len(indexs)]]
+            emb_question = torch.zeros([0])
+            # 获取question的embedding输出
+            for line in index_range:
+                tmp_ques = question[line[0]:line[1]]
+                tmp_in_question = self.tokenizer(tmp_ques, padding=True, return_tensors="pt")
+                tmp_out_question = self.model(**tmp_in_question)
+                tmp_emb_question = tmp_out_question.last_hidden_state[:,0]
+                emb_question = torch.cat((emb_question, tmp_emb_question), 0)
             # 计算相似度
             vec_inner = torch.matmul(emb_question, emb_query)
             list_inner = [[ind, x[0]] for ind,x in enumerate(vec_inner.cpu().tolist())]
