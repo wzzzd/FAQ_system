@@ -106,6 +106,11 @@ $ pip install -r requirements.txt
 
 另外，为了在语料较大的情况下，减少召回模块消耗的时间，本项目使用Elasticsearch分布式搜索引擎来存储所有的语料。使用版本为（[7-10-2](https://www.elastic.co/cn/downloads/past-releases/elasticsearch-7-10-2)）。
 
+按照完毕后，启动ES服务
+```
+cd /your_path/elasticsearch-7.10.2/bin;
+./elasticsearch -d;
+```
 
 ## 效果
 
