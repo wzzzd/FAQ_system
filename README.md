@@ -148,7 +148,7 @@ cd /your_path/elasticsearch-7.10.2/bin;
 | ngram | - | 0.52 | 0.69 | 0.84 |
 | word2vec(tencent) | - | 0.76 | 0.83 | 0.88 |
 | bm25 | lm-mini(Unsup) | 0.45 | 0.54 | 0.64 |
-| bm25 | simcse-bert(Unsup) | 0.43 | 0.51 | 0.61 |
+| bm25 | simcse-bert(Unsup) | 0.92 | 0.98 | 0.99 |
 | bm25 | bert(sup) | 0.99 | 1.0 | 1.0 |
 
 
