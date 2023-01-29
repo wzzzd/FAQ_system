@@ -40,7 +40,7 @@ class FAQ(object):
             res (Dict): 结果
                 - 格式为：[{'question':'xxx', 'answer':'xxx'},...]
         """
-        self.logger.info('----------------- FAQ start-----------------')
+        self.logger.info('----------------- FAQ start -----------------')
         self.logger.info('query: {}'.format(query))
         # 分词
         tokens = [ x for x in jieba.cut(query, cut_all=False)]

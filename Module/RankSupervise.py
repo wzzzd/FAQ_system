@@ -59,7 +59,7 @@ class RankSupervise(object):
             tmp = query + '[SEP]' + line
             inputs.append(tmp)
 
-        # 计算排序分数
+        # # 计算排序分数
         # # 获取question的embedding输出
         # inputs_token = self.tokenizer(inputs, padding=True, return_tensors="pt")
         # if self.config.use_cuda:
@@ -71,6 +71,18 @@ class RankSupervise(object):
         #     # 获取概率
         #     outputs_softmax = F.softmax(output, 1)
         #     prob = torch.max(outputs_softmax, dim=1)[0].cpu().numpy().tolist()
+
+        # # 获取标签为pos的概率值
+        # score = []
+        # for i,(lab, p) in enumerate(zip(pred, prob)):
+        #     if lab==1:
+        #         score.append([i, p])
+        # # 排序
+        # score = sorted(score, key=lambda x: x[1], reverse=True)
+        # # 根据index获取answer
+        # score = score[:size]
+        # corpus_choice = [corpus[x[0]] for x in score]
+        # probs = [x[1] for x in score]
 
         # 按照batch进行数据切片
         input_index = [[i,x] for i,x in enumerate(inputs)]
@@ -86,17 +98,17 @@ class RankSupervise(object):
         pred = []
         prob = []
         for line in index_range:
-            tmp_input = question[line[0]:line[1]]
+            tmp_input = inputs[line[0]:line[1]]
             tmp_input_token = self.tokenizer(tmp_input, padding=True, return_tensors="pt")
             with torch.no_grad():
                 output = self.model(**tmp_input_token)
-                # 获取标签
-                tmp_pred = torch.max(output, 1)[1].cpu().numpy().tolist()
-                # 获取概率
-                outputs_softmax = F.softmax(output, 1)
-                tmp_prob = torch.max(outputs_softmax, dim=1)[0].cpu().numpy().tolist()
-                pred.extend(tmp_pred)
-                prob.extend(tmp_prob)
+            # 获取标签
+            tmp_pred = torch.max(output, 1)[1].cpu().numpy().tolist()
+            # 获取概率
+            outputs_softmax = F.softmax(output, 1)
+            tmp_prob = torch.max(outputs_softmax, dim=1)[0].cpu().numpy().tolist()
+            pred.extend(tmp_pred)
+            prob.extend(tmp_prob)
 
         # 获取标签为pos的概率值
         score = []
