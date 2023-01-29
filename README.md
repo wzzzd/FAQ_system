@@ -188,7 +188,7 @@ $ python insert_data_to_es.py
 模型方面，选了本人另一个项目[text_classifier_pytorch](https://github.com/wzzzd/text_classifier_pytorch)中的bert模型来完成排序任务。
 可直接将本数据集，替换掉该项目的数据集，再进行训练，即可得到排序模型。
 
-若想直接使用本数据集训练的模型参数，可直接下载模型文件[rank-bert](https://pan.baidu.com/s/1B51WcVrjxRRRPVcqg4-dwg)，密码:tal1。并将下载的所有文件（非文件夹）放在目录`file/supervise/bert/`下。
+若想直接使用本数据集训练的模型参数，可直接下载模型文件[rank-bert](https://pan.baidu.com/s/1j-Nfk4-nzAZrNIKzsPQ2qA)，密码:khpb。并将下载的所有文件（非文件夹）放在目录`file/supervise/bert/`下。
 
 
 ### 4.训练无监督的语义表征模型SimCSE（可选）
@@ -198,7 +198,7 @@ $ python insert_data_to_es.py
 
 本项目提供了已经处理好的保险行业的无监督训练数据集，可参考`data/insurance_zhidao_unsup/corpus.txt`
 
-若想直接使用本数据集训练的模型参数，可直接下载模型文件[simcse-bert](https://pan.baidu.com/s/16l2_HC59x_MleW-jl3qe_A)，密码:c50e。并将下载的所有文件（非文件夹）放在目录`file/unsupervise/simcse_bert/`下。
+若想直接使用本数据集训练的模型参数，可直接下载模型文件[simcse-bert](https://pan.baidu.com/s/1RBT05bFwZ6THy61ZBqxKMQ)，密码:65av。并将下载的所有文件（非文件夹）放在目录`file/unsupervise/simcse_bert/`下。
 
 
 ### 5.FAQ问答
