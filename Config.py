@@ -29,7 +29,7 @@ class Config(object):
     use_cuda = True                             # 是否使用GPU
     cuda_visible_devices = 'cpu'                # gpu卡号，如0
     use_rank = True                             # 是否开启精排，True开启，False不开启
-    use_supervise = True                       # True表示使用有监督方法，False表示使用无监督方法
+    use_supervise = True                        # True表示使用有监督方法，False表示使用无监督方法
     
     ## 无监督方法
     unsup_rank_name = 'simcse-bert'                 # 可选：simcse-distilbert/simcse-bert/lm-mini
