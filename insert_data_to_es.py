@@ -58,10 +58,10 @@ def main():
     for i, line in enumerate(action):
         post_data.append(line)
         if i % interval == 0:
-            helpers.bulk(es, action)
+            helpers.bulk(es, post_data)
             post_data = []
     if post_data:
-        helpers.bulk(es, action)
+        helpers.bulk(es, post_data)
 
 
 if __name__ == '__main__':
