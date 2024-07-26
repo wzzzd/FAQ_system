@@ -8,7 +8,7 @@ from Module.Recall import Recall
 from Module.PreRank import PreRank
 from Module.RankUnsupervise import RankUnsupervise
 from Module.RankSupervise import RankSupervise
-from Utils.Logger import init_logger
+from utils.Logger import init_logger
 
 
 class FAQ(object):
